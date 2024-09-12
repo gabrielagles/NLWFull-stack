@@ -1,8 +1,17 @@
 const start = () => {
-    let count = 0
-    while(count < 10){
-        console.log(count)
-        count ++ // = count + 1
+
+    while(true){
+        let opcao = "Sair"
+        switch(opcao){
+            case "Cadastrar":
+            console.log("Vamos cadastrar");
+            break //break você só usa se tiver algo abaixo, caso não tenha, apenas o return
+        case "Listar":
+            console.log("Vamos listar");
+            break
+        case "Sair":
+            return        
+        }
     }
 }
 
