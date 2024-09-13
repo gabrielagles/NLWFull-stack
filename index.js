@@ -1,4 +1,26 @@
-const { select } = require('@inquirer/prompts')
+const { select, input } = require('@inquirer/prompts')
+
+let meta = {
+    value: 'Tomar 3L de água por dia',
+    checked: false, 
+
+}
+
+let metas = [ meta ]
+
+const cadastrarMeta = async () => {
+    const meta = await input ({ message: "Digite a meta:" })
+
+    if(meta.length == 0) {
+        console.log('A meta não pode ser vazia.');
+        return  
+    }
+
+    metas.push(
+        { value: meta, checked: false }
+    )
+
+}
 
 const start = async () => {
 
@@ -8,7 +30,7 @@ const start = async () => {
             message: "Menu >",
             choices: [
                 {
-                    name: "Cadastra meta",
+                    name: "Cadastrar meta",
                     value: "Cadastrar"
                 },
                 {
@@ -22,9 +44,10 @@ const start = async () => {
             ]
         })
 
-        switch(opcao){
-            case "Cadastrar":
-            console.log("Vamos cadastrar");
+    switch(opcao){
+        case "Cadastrar":
+            await cadastrarMeta()
+            console.log(metas);
             break //break você só usa se tiver algo abaixo, caso não tenha, apenas o return
         case "Listar":
             console.log("Vamos listar");
