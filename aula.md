@@ -42,6 +42,7 @@ Constantes
 ### Arrays:
 
 - [x] Uma lista que contenha qualquer tipo de dado
+- [x] Métodos de array: push, [find, forEach, filter] : HOF (Higher Order Functions)
 
 ### Objetos:
 
