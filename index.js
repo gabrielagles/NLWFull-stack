@@ -3,7 +3,6 @@ const { select, input, checkbox } = require('@inquirer/prompts')
 let meta = {
     value: 'Tomar 3L de água por dia',
     checked: false, 
-
 }
 
 let metas = [ meta ]
@@ -19,7 +18,6 @@ const cadastrarMeta = async () => {
     metas.push(
         { value: meta, checked: false }
     )
-
 }
 
 const listarMetas = async () => {
@@ -46,8 +44,7 @@ const listarMetas = async () => {
         meta.checked = true
     })
 
-    console.log('Meta(s) marcadas como concluída(s)');
-    
+    console.log('Meta(s) marcadas como concluída(s)');  
 }
 
 const metasRealizadas = async () => {
@@ -55,8 +52,32 @@ const metasRealizadas = async () => {
         return meta.checked
     })
 
-    console.log(realizadas);
-    
+    if(realizadas.length == 0) {
+        console.log("Não existem metas realizadas! :(");
+        return
+    }
+
+    await select ({
+        message: "Metas Realizadas" + realizadas.length,
+        choices: [...realizadas]
+    })
+
+}
+
+const metasAbertas = async () => {
+    const abertas = metas.filter((meta) => {
+        return meta.checked != true //posso colocar o ! na frente do meta.checked
+    })
+
+    if (abertas.length == 0) {
+        console.log("Não existem metas abertas! :)");
+        return
+    }
+
+    await select ({
+        message: "Metas Abertas" + abertas.length,
+        choices: [...abertas]
+    })
 }
 
 const start = async () => {
@@ -79,6 +100,10 @@ const start = async () => {
                     value: "Realizadas"
                 },
                 {
+                    name: "Metas Abertas",
+                    value: "abertas"
+                },
+                {
                     name: "Sair",
                     value: "Sair"
                 }
@@ -95,7 +120,10 @@ const start = async () => {
             break
         case "Realizadas":
             await metasRealizadas()
-            break   
+            break
+        case "Abertas":
+            await metasAbertas()
+            break      
         case "Sair":
             console.log("Até a próxima!")
             return        
